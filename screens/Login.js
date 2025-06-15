@@ -1,0 +1,157 @@
+import {
+  View,
+  Text,
+  Image,
+  KeyboardAvoidingView,
+  Pressable,
+} from "react-native";
+import React, { useState } from "react";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { TextInput } from "react-native";
+
+const Login = () => {
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+
+  return (
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: "white",
+        alignItems: "center",
+        padding: 40,
+      }}
+    >
+      <View
+        style={{
+          margin: 20,
+        }}
+      >
+        <Image
+          style={{ width: 80, height: 80 }}
+          source={require("../assets/market.jpg")}
+        />
+      </View>
+      <KeyboardAvoidingView>
+        <View style={{ alignContent: "center", alignItems: "center" }}>
+          <Text
+            style={{
+              margin: 10,
+              fontWeight: 500,
+              fontSize: 18,
+              color: "black",
+            }}
+          >
+            Login to your account
+          </Text>
+        </View>
+        <View
+          style={{
+            marginTop: 70,
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              alignContent: "center",
+              alignItems: "center",
+              gap: 10,
+              backgroundColor: "#F8F8F8",
+              padding: 5,
+              borderRadius: 5,
+              width: 350,
+              margin: 10,
+              //   borderWidth: 0.5,
+              elevation: 2,
+            }}
+          >
+            <MaterialIcons name="email" size={24} color="#f53d3d" />
+            <TextInput
+              placeholder="Enter your email"
+              onChangeText={(text) => setemail(text)}
+              value={email}
+              style={{
+                width: 300,
+              }}
+            />
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              alignContent: "center",
+              alignItems: "center",
+              gap: 10,
+              backgroundColor: "#F8F8F8",
+              padding: 5,
+              borderRadius: 5,
+              width: 350,
+              margin: 10,
+              //   borderWidth: 0.5,
+              elevation: 2,
+            }}
+          >
+            <MaterialIcons name="password" size={24} color="#f53d3d" />
+            <TextInput
+              secureTextEntry={true}
+              placeholder="Enter your password"
+              value={password}
+              onChangeText={(text) => setpassword(text)}
+              style={{
+                width: 300,
+              }}
+            />
+          </View>
+        </View>
+        <View
+          style={{
+            width: 350,
+            justifyContent: "space-between",
+            flexDirection: "row",
+            padding: 6,
+          }}
+        >
+          <Text style={{ fontStyle: "italic" }}>Keep me Logged In</Text>
+          <Text style={{ fontStyle: "italic", color: "#33adff" }}>
+            Forget Password!
+          </Text>
+        </View>
+        <View
+          style={{
+            marginTop: 70,
+            alignContent: "center",
+            alignItems: "center",
+            width: 350,
+          }}
+        >
+          <Pressable
+            style={{
+              width: 350,
+              alignItems: "center",
+              backgroundColor: "#f53d3d",
+              height: 50,
+              borderRadius: 5,
+            }}
+          >
+            <Text
+              style={{
+                textAlign: "center",
+                padding: 15,
+                fontSize: 15,
+                fontWeight: 600,
+                color: "white",
+              }}
+            >
+              Login
+            </Text>
+          </Pressable>
+        </View>
+        <Pressable style={{marginTop:20}}>
+          <Text style={{fontWeight:600, textAlign:"center" , color:"gray", fontSize:12}}>Don't have an account Sign'up</Text>
+        </Pressable>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+  );
+};
+
+export default Login;
