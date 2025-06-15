@@ -9,10 +9,12 @@ import React, { useState } from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextInput } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const Login = () => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView
@@ -146,8 +148,17 @@ const Login = () => {
             </Text>
           </Pressable>
         </View>
-        <Pressable style={{marginTop:20}}>
-          <Text style={{fontWeight:600, textAlign:"center" , color:"gray", fontSize:12}}>Don't have an account Sign'up</Text>
+        <Pressable style={{ marginTop: 20 }} onPress={()=>navigation.navigate("Register")} >
+          <Text
+            style={{
+              fontWeight: 600,
+              textAlign: "center",
+              color: "gray",
+              fontSize: 12,
+            }}
+          >
+            Don't have an account Sign'up
+          </Text>
         </Pressable>
       </KeyboardAvoidingView>
     </SafeAreaView>

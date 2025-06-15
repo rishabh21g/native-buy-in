@@ -13,12 +13,12 @@ const StackNav = () => {
         <Stack.Screen
           name="Login"
           component={Login}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, animation: "slide_from_bottom" }}
         />
         <Stack.Screen
           name="Register"
           component={Register}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, animation: "slide_from_bottom" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
