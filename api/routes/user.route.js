@@ -29,3 +29,22 @@ export const register = router.post("/", async (req, res) => {
     console.log(`Something went wrong: ${err.message}`);
   }
 });
+
+export const verifyEmail = router.get("/", async (req, res) => {
+  try {
+    const token = await req.params.token;
+    //find the user with a token
+    const user = await User.findOne({ verificationToken: token });
+    if (!user) {
+      return res.status(404).json({ message: "Invalid Token!" });
+    }
+    //mark user as verify
+    user.verified = true;
+    user.verificationToken = undefined;
+    await user.save();
+    res.status(200).json({ message: "Verification successfull" });
+  } catch (err) {
+    console.log("Verification failed");
+    return res.status(500).json({ message: "Verification failed!" });
+  }
+});

@@ -4,19 +4,42 @@ import {
   Image,
   KeyboardAvoidingView,
   Pressable,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import axios from "axios";
 
 const Register = () => {
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const navigation = useNavigation();
+  const handleRegistration = async () => {
+    const user = {
+      name: name,
+      email: email,
+      password: password,
+    };
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/register",
+        user
+      );
+      console.log(response);
+      Alert.alert("Registration Done");
+      setname("");
+      setemail("");
+      setpassword("");
+    } catch (err) {
+      Alert.alert("Registration error")
+      console.log(err);
+    }
+  };
 
   return (
     <SafeAreaView
@@ -47,7 +70,7 @@ const Register = () => {
               color: "black",
             }}
           >
-             Make your new account here
+            Make your new account here
           </Text>
         </View>
         <View
@@ -161,6 +184,7 @@ const Register = () => {
               height: 50,
               borderRadius: 5,
             }}
+            onPress={handleRegistration}
           >
             <Text
               style={{
