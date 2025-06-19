@@ -43,6 +43,7 @@ export const sendVerificationEmail = async (
               border-radius: 4px; 
               display: inline-block;
               margin: 20px 0;
+              
             }
             .footer { background-color: #f1f1f1; padding: 10px; text-align: center; font-size: 12px; }
           </style>
@@ -58,22 +59,14 @@ export const sendVerificationEmail = async (
               <p>This verification link will expire in 24 hours.</p>
               <p>If you didn't create an account with us, please ignore this email.</p>
             </div>
+            <a href="http://localhost:4000/verify/${verificationToken}" class="button">Verify</a>
+
             <div class="footer">
               <p>&copy; 2025 Your App Name. All rights reserved.</p>
             </div>
           </div>
         </body>
         </html>
-      `,
-    text: `
-        Hello ${userName}!
-        
-        Thank you for registering with us. Please verify your email address by visiting this link:
-        http://localhost:4000/verify/${verificationToken}
-        
-        This verification link will expire in 24 hours.
-        
-        If you didn't create an account with us, please ignore this email.
       `,
   };
   try {

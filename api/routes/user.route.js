@@ -2,6 +2,14 @@ import express from "express";
 import User from "../model/user.model.js";
 import crypto from "crypto";
 import { sendVerificationEmail } from "../config/verify.js";
+import jwt from "jsonwebtoken";
+// import { fileURLToPath } from "url";
+// import { config } from "dotenv";
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+// config({
+//   path: path.resolve(__dirname, "../.env.local"),
+// });
 
 const router = express.Router();
 
@@ -30,7 +38,7 @@ export const register = router.post("/", async (req, res) => {
   }
 });
 
-export const verifyEmail = router.get("/", async (req, res) => {
+export const verifyEmail = async (req, res) => {
   try {
     const token = req.params.token;
     //find the user with a token
@@ -46,5 +54,25 @@ export const verifyEmail = router.get("/", async (req, res) => {
   } catch (err) {
     console.log("Verification failed");
     return res.status(500).json({ message: "Verification failed!" });
+  }
+};
+const generateKey = crypto.randomBytes(20).toString("hex");
+export const login = router.post("/", async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const existingUser = await User.findOne({ email });
+    if (!existingUser) {
+      return res.status(401).json({ failure: "User not found" });
+    }
+    if (existingUser.password !== password) {
+      return res.status(404).json({ message: "Invalid Credentials" });
+    }
+    const token = jwt.sign({ userID: existingUser._id }, generateKey(), {
+      expiresIn: "1h",
+    });
+    return res.status(200).json({ token });
+  } catch (err) {
+    console.log("Error while logging in try again later" + err?.message);
+    res.send("Error while logging in!");
   }
 });

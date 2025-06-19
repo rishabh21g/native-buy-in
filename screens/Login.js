@@ -4,18 +4,44 @@ import {
   Image,
   KeyboardAvoidingView,
   Pressable,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 
 const Login = () => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  const [loading, setloading] = useState(false);
   const navigation = useNavigation();
-
+  const handleLogin = async () => {
+    setloading(true);
+    const user = {
+      email: email,
+      password: password,
+    };
+    try {
+      const response = axios.post(
+        "http://192.168.117.43:4000/api/register",
+        user
+      );
+      console.log(response);
+      Alert.alert("Login Successfully");
+      setemail("");
+      setpassword("");
+      setloading(false);
+    } catch (err) {
+      Alert.alert("Login failed");
+      console.log("Error while loggin in" + err.message);
+      setloading(false);
+    } finally {
+      setloading(false);
+    }
+  };
   return (
     <SafeAreaView
       style={{
@@ -134,6 +160,7 @@ const Login = () => {
               height: 50,
               borderRadius: 5,
             }}
+            onPress={handleLogin}
           >
             <Text
               style={{
@@ -148,7 +175,10 @@ const Login = () => {
             </Text>
           </Pressable>
         </View>
-        <Pressable style={{ marginTop: 20 }} onPress={()=>navigation.navigate("Register")} >
+        <Pressable
+          style={{ marginTop: 20 }}
+          onPress={() => navigation.navigate("Register")}
+        >
           <Text
             style={{
               fontWeight: 600,

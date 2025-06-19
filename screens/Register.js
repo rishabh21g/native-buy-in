@@ -30,7 +30,7 @@ const Register = () => {
     };
     try {
       const response = await axios.post(
-        "http://192.168.160.43:4000/api/register",
+        "http://192.168.117.43:4000/api/register",
         user
       );
       console.log(response);
