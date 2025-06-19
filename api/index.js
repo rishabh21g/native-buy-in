@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cors());
 connectDB();
 app.post("/api/register", register);
-app.get("/verify:token", verifyEmail);
+app.get("/verify/:token", verifyEmail);
 
 app.listen(PORT, () => {
   console.log("Server is running on port: " + PORT);

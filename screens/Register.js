@@ -5,6 +5,7 @@ import {
   KeyboardAvoidingView,
   Pressable,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -18,8 +19,10 @@ const Register = () => {
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  const [loading, setloading] = useState(false);
   const navigation = useNavigation();
   const handleRegistration = async () => {
+    setloading(true);
     const user = {
       name: name,
       email: email,
@@ -27,7 +30,7 @@ const Register = () => {
     };
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/register",
+        "http://192.168.160.43:4000/api/register",
         user
       );
       console.log(response);
@@ -35,9 +38,13 @@ const Register = () => {
       setname("");
       setemail("");
       setpassword("");
+      setloading(false);
     } catch (err) {
-      Alert.alert("Registration error")
+      Alert.alert("Registration error");
       console.log(err);
+      setloading(false);
+    } finally {
+      setloading(false);
     }
   };
 
@@ -97,7 +104,7 @@ const Register = () => {
             <TextInput
               placeholder="Enter your fullname"
               onChangeText={(text) => setname(text)}
-              value={email}
+              value={name}
               style={{
                 width: 300,
               }}
@@ -186,17 +193,21 @@ const Register = () => {
             }}
             onPress={handleRegistration}
           >
-            <Text
-              style={{
-                textAlign: "center",
-                padding: 15,
-                fontSize: 15,
-                fontWeight: 600,
-                color: "white",
-              }}
-            >
-              SignUp
-            </Text>
+            {loading ? (
+              <ActivityIndicator size="large" color="f53d3d" />
+            ) : (
+              <Text
+                style={{
+                  textAlign: "center",
+                  padding: 15,
+                  fontSize: 15,
+                  fontWeight: 600,
+                  color: "white",
+                }}
+              >
+                SignUp
+              </Text>
+            )}
           </Pressable>
         </View>
         <Pressable

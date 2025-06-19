@@ -1,15 +1,15 @@
 import express from "express";
 import User from "../model/user.model.js";
 import crypto from "crypto";
-import sendVerificationEmail from "../config/verify.js";
+import { sendVerificationEmail } from "../config/verify.js";
 
 const router = express.Router();
 
 export const register = router.post("/", async (req, res) => {
-  const { name, email, password } = await req.body;
+  const { name, email, password } = req.body;
   try {
     //check email already exist
-    const existingUser = await User.findOne(email);
+    const existingUser = await User.findOne({ email });
     //if yes send res to user
     if (existingUser) {
       return res.status(400).json({ message: "Email already registered!" });
@@ -19,7 +19,7 @@ export const register = router.post("/", async (req, res) => {
     // generate verificationToken
     newUser.verificationToken = crypto.randomBytes(20).toString("hex");
     // save user in db
-    newUser.save();
+    await newUser.save();
     sendVerificationEmail(
       newUser.verificationToken,
       newUser.email,
@@ -32,7 +32,7 @@ export const register = router.post("/", async (req, res) => {
 
 export const verifyEmail = router.get("/", async (req, res) => {
   try {
-    const token = await req.params.token;
+    const token = req.params.token;
     //find the user with a token
     const user = await User.findOne({ verificationToken: token });
     if (!user) {

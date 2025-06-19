@@ -1,13 +1,14 @@
 import nodemailer from "nodemailer";
 import path from "path";
 import { fileURLToPath } from "url";
+import { config } from "dotenv";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 config({
   path: path.resolve(__dirname, "../.env.local"),
 });
 
-export default sendVerificationEmail = async (
+export const sendVerificationEmail = async (
   verificationToken,
   email,
   userName
