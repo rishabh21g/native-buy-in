@@ -5,6 +5,7 @@ import {
   KeyboardAvoidingView,
   Pressable,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -25,8 +26,8 @@ const Login = () => {
       password: password,
     };
     try {
-      const response = axios.post(
-        "http://192.168.117.43:4000/api/register",
+      const response = await axios.post(
+        "http://192.168.117.43:4000/api/login",
         user
       );
       console.log(response);
@@ -162,17 +163,21 @@ const Login = () => {
             }}
             onPress={handleLogin}
           >
-            <Text
-              style={{
-                textAlign: "center",
-                padding: 15,
-                fontSize: 15,
-                fontWeight: 600,
-                color: "white",
-              }}
-            >
-              Login
-            </Text>
+            {loading ? (
+              <ActivityIndicator size={"large"} color={"black"} />
+            ) : (
+              <Text
+                style={{
+                  textAlign: "center",
+                  padding: 15,
+                  fontSize: 15,
+                  fontWeight: 600,
+                  color: "white",
+                }}
+              >
+                Login
+              </Text>
+            )}
           </Pressable>
         </View>
         <Pressable

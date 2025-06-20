@@ -73,6 +73,6 @@ export const login = router.post("/", async (req, res) => {
     return res.status(200).json({ token });
   } catch (err) {
     console.log("Error while logging in try again later" + err?.message);
-    res.send("Error while logging in!");
+    return res.status(500).json({ failure: "Internal Server Error" });
   }
 });
