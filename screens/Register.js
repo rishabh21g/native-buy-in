@@ -35,16 +35,14 @@ const Register = () => {
         "http://192.168.117.43:4000/api/user/register",
         user
       );
-      console.log(response);
+      // console.log(response);
       Alert.alert("Registration Done");
       setname("");
       setemail("");
       setpassword("");
-      setloading(false);
     } catch (err) {
       Alert.alert("Registration error");
       console.log(err);
-      setloading(false);
     } finally {
       setloading(false);
     }

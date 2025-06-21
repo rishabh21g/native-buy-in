@@ -34,18 +34,17 @@ const Login = () => {
         user
       );
       console.log(response);
-      AsyncStorage.setItem("authToken", response.data.token);
+      await AsyncStorage.setItem("authToken", response.data.token);
 
       if (response.data.token) {
         Alert.alert("Login Successfully");
+        navigation.replace("Home");
       }
       setemail("");
       setpassword("");
-      setloading(false);
     } catch (err) {
       Alert.alert("Login failed");
       console.log("Error while loggin in" + err.message);
-      setloading(false);
     } finally {
       setloading(false);
     }
@@ -105,7 +104,7 @@ const Login = () => {
             <MaterialIcons name="email" size={24} color="#f53d3d" />
             <TextInput
               placeholder="Enter your email"
-              onChangeText={(text) => setemail(text)}
+              onChangeText={(text) => setemail(text.trim())}
               value={email}
               style={{
                 width: 300,
