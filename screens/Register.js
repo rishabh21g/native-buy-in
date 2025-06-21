@@ -41,7 +41,7 @@ const Register = () => {
       setname("");
       setemail("");
       setpassword("");
-      navigation.replace("Home")
+      navigation.replace("Main")
     } catch (err) {
       Alert.alert("Registration error");
       console.log(err);

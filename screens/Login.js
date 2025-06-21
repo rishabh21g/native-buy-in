@@ -39,7 +39,7 @@ const Login = () => {
 
       if (response.data.token) {
         Alert.alert("Login Successfully");
-        navigation.replace("Home");
+        navigation.replace("Main");
       }
       setemail("");
       setpassword("");
