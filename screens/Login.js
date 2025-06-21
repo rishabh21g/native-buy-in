@@ -7,6 +7,7 @@ import {
   Alert,
   ActivityIndicator,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import React, { useState } from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -53,159 +54,162 @@ const Login = () => {
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: "white",
-        alignItems: "center",
-        padding: 40,
+        backgroundColor: "#fff",
+        paddingHorizontal: 24,
+        justifyContent: "center",
       }}
     >
-      <View
-        style={{
-          margin: 20,
-        }}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        keyboardVerticalOffset={50}
+        style={{ flex: 1, justifyContent: "center" }}
       >
-        <Image
-          style={{ width: 80, height: 80 }}
-          source={require("../assets/market.jpg")}
-        />
-      </View>
-      <KeyboardAvoidingView>
-        <View style={{ alignContent: "center", alignItems: "center" }}>
+        {/* Logo */}
+        <View style={{ alignItems: "center", marginBottom: 40 }}>
+          <Image
+            style={{ width: 100, height: 100, borderRadius: 12 }}
+            source={require("../assets/market.jpg")}
+          />
           <Text
             style={{
-              margin: 10,
-              fontWeight: 500,
-              fontSize: 18,
-              color: "black",
+              marginTop: 20,
+              fontSize: 20,
+              fontWeight: "600",
+              color: "#333",
             }}
           >
             Login to your account
           </Text>
         </View>
+
+        {/* Email Input */}
         <View
           style={{
-            marginTop: 70,
-          }}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              alignContent: "center",
-              alignItems: "center",
-              gap: 10,
-              backgroundColor: "#F8F8F8",
-              padding: 5,
-              borderRadius: 5,
-              width: 350,
-              margin: 10,
-              //   borderWidth: 0.5,
-              elevation: 2,
-            }}
-          >
-            <MaterialIcons name="email" size={24} color="#f53d3d" />
-            <TextInput
-              placeholder="Enter your email"
-              onChangeText={(text) => setemail(text.trim())}
-              value={email}
-              style={{
-                width: 300,
-              }}
-            />
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              alignContent: "center",
-              alignItems: "center",
-              gap: 10,
-              backgroundColor: "#F8F8F8",
-              padding: 5,
-              borderRadius: 5,
-              width: 350,
-              margin: 10,
-              //   borderWidth: 0.5,
-              elevation: 2,
-            }}
-          >
-            <MaterialIcons name="password" size={24} color="#f53d3d" />
-            <TextInput
-              secureTextEntry={!showPassword}
-              placeholder="Enter your password"
-              value={password}
-              onChangeText={(text) => setpassword(text)}
-              style={{
-                width: 300,
-              }}
-            />
-            <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-              <MaterialIcons
-                name={!showPassword ? "visibility-off" : "visibility"}
-                size={24}
-                color="f53d3d"
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View
-          style={{
-            width: 350,
-            justifyContent: "space-between",
             flexDirection: "row",
-            padding: 6,
+            alignItems: "center",
+            backgroundColor: "#F0F0F0",
+            borderRadius: 10,
+            paddingHorizontal: 12,
+            marginBottom: 20,
+            height: 50,
+            elevation: 1,
           }}
         >
-          <Text style={{ fontStyle: "italic" }}>Keep me Logged In</Text>
-          <Text style={{ fontStyle: "italic", color: "#33adff" }}>
-            Forget Password!
+          <MaterialIcons name="email" size={22} color="#f53d3d" />
+          <TextInput
+            placeholder="Enter your email"
+            onChangeText={(text) => setemail(text.trim())}
+            value={email}
+            keyboardType="email-address"
+            style={{
+              flex: 1,
+              marginLeft: 10,
+              fontSize: 14,
+              color: "#333",
+            }}
+          />
+        </View>
+
+        {/* Password Input */}
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            backgroundColor: "#F0F0F0",
+            borderRadius: 10,
+            paddingHorizontal: 12,
+            marginBottom: 10,
+            height: 50,
+            elevation: 1,
+          }}
+        >
+          <MaterialIcons name="lock" size={22} color="#f53d3d" />
+          <TextInput
+            secureTextEntry={!showPassword}
+            placeholder="Enter your password"
+            value={password}
+            onChangeText={(text) => setpassword(text)}
+            style={{
+              flex: 1,
+              marginLeft: 10,
+              fontSize: 14,
+              color: "#333",
+            }}
+          />
+          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+            <MaterialIcons
+              name={!showPassword ? "visibility-off" : "visibility"}
+              size={22}
+              color="#f53d3d"
+            />
+          </TouchableOpacity>
+        </View>
+
+        {/* Forget / Keep me Logged in */}
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginBottom: 30,
+            paddingHorizontal: 2,
+          }}
+        >
+          <Text style={{ fontSize: 12, fontStyle: "italic", color: "#555" }}>
+            Keep me logged in
+          </Text>
+          <Text
+            style={{
+              fontSize: 12,
+              fontStyle: "italic",
+              color: "#33adff",
+              fontWeight: "500",
+            }}
+          >
+            Forgot Password?
           </Text>
         </View>
-        <View
+
+        {/* Login Button */}
+        <Pressable
           style={{
-            marginTop: 70,
-            alignContent: "center",
+            backgroundColor: "#f53d3d",
+            height: 50,
+            borderRadius: 10,
+            justifyContent: "center",
             alignItems: "center",
-            width: 350,
           }}
+          onPress={handleLogin}
         >
-          <Pressable
-            style={{
-              width: 350,
-              alignItems: "center",
-              backgroundColor: "#f53d3d",
-              height: 50,
-              borderRadius: 5,
-            }}
-            onPress={handleLogin}
-          >
-            {loading ? (
-              <ActivityIndicator size={"large"} color={"black"} />
-            ) : (
-              <Text
-                style={{
-                  textAlign: "center",
-                  padding: 15,
-                  fontSize: 15,
-                  fontWeight: 600,
-                  color: "white",
-                }}
-              >
-                Login
-              </Text>
-            )}
-          </Pressable>
-        </View>
+          {loading ? (
+            <ActivityIndicator size="small" color="#fff" />
+          ) : (
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "600",
+                color: "#fff",
+              }}
+            >
+              Login
+            </Text>
+          )}
+        </Pressable>
+
+        {/* Sign up */}
         <Pressable
           style={{ marginTop: 20 }}
           onPress={() => navigation.navigate("Register")}
         >
           <Text
             style={{
-              fontWeight: 600,
+              fontSize: 13,
               textAlign: "center",
-              color: "gray",
-              fontSize: 12,
+              color: "#888",
+              fontWeight: "500",
             }}
           >
-            Don't have an account Sign'up
+            Don't have an account?{" "}
+            <Text style={{ color: "#f53d3d", fontWeight: "600" }}>Sign up</Text>
           </Text>
         </Pressable>
       </KeyboardAvoidingView>

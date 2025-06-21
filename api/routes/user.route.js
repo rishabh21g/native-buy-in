@@ -34,6 +34,7 @@ export const register = router.post("/register", async (req, res) => {
       newUser.email,
       newUser.name
     );
+    res.status(200).json({message:"Registered Successfully"})
   } catch (err) {
     console.log(`Something went wrong: ${err}`);
   }
