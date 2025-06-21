@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   Platform,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextInput } from "react-native";
@@ -50,6 +50,19 @@ const Login = () => {
       setloading(false);
     }
   };
+  async function checkLogin() {
+    try {
+      const token = await AsyncStorage.getItem("authtoken");
+      if (token) {
+        navigation.replace("Main");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  useEffect(() => {
+    checkLogin();
+  }, []);
   return (
     <SafeAreaView
       style={{
