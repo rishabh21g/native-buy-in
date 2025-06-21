@@ -2,18 +2,19 @@ import express from "express";
 import User from "../model/user.model.js";
 import crypto from "crypto";
 import { sendVerificationEmail } from "../config/verify.js";
+import path from "node:path";
 import jwt from "jsonwebtoken";
-// import { fileURLToPath } from "url";
-// import { config } from "dotenv";
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-// config({
-//   path: path.resolve(__dirname, "../.env.local"),
-// });
+import { fileURLToPath } from "url";
+import { config } from "dotenv";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+config({
+  path: path.resolve(__dirname, "../.env.local"),
+});
 
 const router = express.Router();
 
-export const register = router.post("/", async (req, res) => {
+export const register = router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
   try {
     //check email already exist
@@ -34,7 +35,7 @@ export const register = router.post("/", async (req, res) => {
       newUser.name
     );
   } catch (err) {
-    console.log(`Something went wrong: ${err.message}`);
+    console.log(`Something went wrong: ${err}`);
   }
 });
 
@@ -56,8 +57,10 @@ export const verifyEmail = async (req, res) => {
     return res.status(500).json({ message: "Verification failed!" });
   }
 };
-const generateKey = crypto.randomBytes(20).toString("hex");
-export const login = router.post("/", async (req, res) => {
+const generateKey = () => {
+  return crypto.randomBytes(20).toString("hex");
+};
+export const login = router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
     const existingUser = await User.findOne({ email });
@@ -70,7 +73,7 @@ export const login = router.post("/", async (req, res) => {
     const token = jwt.sign({ userID: existingUser._id }, generateKey(), {
       expiresIn: "1h",
     });
-    return res.status(200).json({ token });
+    return res.status(200).json({ token, message:"Login successful" });
   } catch (err) {
     console.log("Error while logging in try again later" + err?.message);
     return res.status(500).json({ failure: "Internal Server Error" });

@@ -9,9 +9,9 @@ const PORT = process.env.PORT;
 app.use(express.json());
 app.use(cors());
 connectDB();
-app.use("/api/register", register);
+app.use("/api/user", register);
 app.get("/verify/:token", verifyEmail);
-app.use("/api/login" , login)
+app.use("/api/user" , login)
 
 app.listen(PORT, () => {
   console.log("Server is running on port: " + PORT);

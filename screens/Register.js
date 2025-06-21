@@ -6,6 +6,7 @@ import {
   Pressable,
   Alert,
   ActivityIndicator,
+  TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -20,6 +21,7 @@ const Register = () => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [loading, setloading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigation = useNavigation();
   const handleRegistration = async () => {
     setloading(true);
@@ -30,7 +32,7 @@ const Register = () => {
     };
     try {
       const response = await axios.post(
-        "http://192.168.117.43:4000/api/register",
+        "http://192.168.117.43:4000/api/user/register",
         user
       );
       console.log(response);
@@ -128,7 +130,7 @@ const Register = () => {
             <MaterialIcons name="email" size={24} color="#f53d3d" />
             <TextInput
               placeholder="Enter your email"
-              onChangeText={(text) => setemail(text)}
+              onChangeText={(text) => setemail(text.trim())}
               value={email}
               style={{
                 width: 300,
@@ -152,7 +154,7 @@ const Register = () => {
           >
             <MaterialIcons name="password" size={24} color="#f53d3d" />
             <TextInput
-              secureTextEntry={true}
+              secureTextEntry={!showPassword}
               placeholder="Enter your password"
               value={password}
               onChangeText={(text) => setpassword(text)}
@@ -160,9 +162,16 @@ const Register = () => {
                 width: 300,
               }}
             />
+            <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+              <MaterialIcons
+                name={!showPassword ? "visibility-off" : "visibility"}
+                size={24}
+                color="f53d3d"
+              />
+            </TouchableOpacity>
           </View>
         </View>
-        {/* <View
+        <View
           style={{
             width: 350,
             justifyContent: "space-between",
@@ -174,7 +183,7 @@ const Register = () => {
           <Text style={{ fontStyle: "italic", color: "#33adff" }}>
             Forget Password!
           </Text>
-        </View> */}
+        </View>
         <View
           style={{
             marginTop: 50,
