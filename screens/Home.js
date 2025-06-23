@@ -9,14 +9,26 @@ import {
   TextInput,
   Image,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { listItems, deals } from "../data/data";
 import ImageSlider from "../components/ImageSlider.js";
+import axios from "axios";
 
 const Home = () => {
+  const [products, setProducts] = useState();
+  const fetchproducts = () => {
+    const result = axios.get(
+      `https://fakestoreapi.in/api/products?limit=3`
+    );
+    console.log(result);
+    setProducts(result?.data?.products);
+  };
+  useEffect(() => {
+    fetchproducts();
+  }, []);
   return (
     <SafeAreaView style={styles.safeView}>
       <ScrollView>

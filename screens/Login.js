@@ -52,9 +52,9 @@ const Login = () => {
   };
   async function checkLogin() {
     try {
-      const token = await AsyncStorage.getItem("authtoken");
+      const token = await AsyncStorage.getItem("authToken");
       if (token) {
-        navigation.replace("Main");
+        navigation.navigate("Main");
       }
     } catch (err) {
       console.log(err);
