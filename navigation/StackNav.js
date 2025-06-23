@@ -1,13 +1,12 @@
-import { View, Text } from "react-native";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "../screens/Login.js";
 import Register from "../screens/Register.js";
 import Home from "../screens/Home.js";
-import Profile from "../screens/Profile.js"
+import Profile from "../screens/Profile.js";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import Ionicons from '@expo/vector-icons/Ionicons';
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import AntDesign from "@expo/vector-icons/AntDesign";
@@ -49,7 +48,7 @@ const StackNav = () => {
               ),
           }}
         />
-          <Tab.Screen
+        <Tab.Screen
           name="Cart"
           component={Cart}
           options={{

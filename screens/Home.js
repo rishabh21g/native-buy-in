@@ -14,6 +14,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { listItems } from "../data/data";
+import ImageSlider from "../components/ImageSlider.js";
 
 const Home = () => {
   return (
@@ -56,6 +57,9 @@ const Home = () => {
             );
           })}
         </ScrollView>
+        {/* Banner of images */}
+        <ImageSlider />
+        {/* Banner done */}
       </ScrollView>
     </SafeAreaView>
   );

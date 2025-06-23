@@ -30,3 +30,9 @@ export const listItems = [
     name: "Cosmetics",
   },
 ];
+
+export const images = [
+  "https://terralogic.com/wp-content/uploads/2024/03/Why-Every-eCommerce-Business-Needs-Mobile-App-scaled-e1711348310220.webp",
+  "https://static.vecteezy.com/system/resources/thumbnails/008/601/839/small/online-shopping-background-design-free-vector.jpg",
+  "https://cdn3.f-cdn.com//files/download/186511195/shopping%20special.jpg?width=780&height=438&fit=crop",
+];

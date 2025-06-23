@@ -34,7 +34,7 @@ const Login = () => {
         "http://192.168.117.43:4000/api/user/login",
         user
       );
-      console.log(response);
+
       await AsyncStorage.setItem("authToken", response.data.token);
 
       if (response.data.token) {
