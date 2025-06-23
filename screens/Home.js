@@ -60,6 +60,13 @@ const Home = () => {
         {/* Banner of images */}
         <ImageSlider />
         {/* Banner done */}
+        {/* Trending deals start */}
+        <Text style={{ fontSize: 20, fontWeight: "500", padding: 10 }}>
+          {" "}
+          Trending deals of the week!
+        </Text>
+        <View style={styles.trends}></View>
+        {/* Trends done */}
       </ScrollView>
     </SafeAreaView>
   );
@@ -110,4 +117,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 15,
   },
+  trends: {},
 });
