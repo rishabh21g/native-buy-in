@@ -13,7 +13,7 @@ import React from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { listItems } from "../data/data";
+import { listItems, deals } from "../data/data";
 import ImageSlider from "../components/ImageSlider.js";
 
 const Home = () => {
@@ -65,7 +65,31 @@ const Home = () => {
           {" "}
           Trending deals of the week!
         </Text>
-        <View style={styles.trends}></View>
+        <View style={styles.trends}>
+          {deals.map((deal, idx) => {
+            return (
+              <Pressable
+                key={idx}
+                style={{
+                  flexDirection: "column",
+                  columnGap: 4,
+                  alignItems: "center",
+                  backgroundColor: "#FAFAFA",
+                  borderRadius: 5,
+                  padding: 8,
+                }}
+              >
+                <Image source={{ uri: deal.img }} style={styles.dealImg} />
+                <Text style={styles.text}>{deal.title}</Text>
+                <Text style={styles.text}>Old Price: ₹{deal.oldPrice}</Text>
+                <Text style={styles.text}>
+                  Discounted Price: ₹{deal.discountedPrice}
+                </Text>
+                <Text style={styles.text}>Size: {deal.size}</Text>
+              </Pressable>
+            );
+          })}
+        </View>
         {/* Trends done */}
       </ScrollView>
     </SafeAreaView>
@@ -117,5 +141,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 15,
   },
-  trends: {},
+  dealImg: {
+    width: 150,
+    resizeMode: "contain",
+    height: 180,
+    borderRadius: 10,
+  },
+  trends: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 10,
+    alignContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 10,
+    justifyContent: "center",
+  },
+  text: {
+    fontWeight: "500",
+  },
 });
